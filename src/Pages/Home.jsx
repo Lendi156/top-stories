@@ -4,6 +4,8 @@ import StoriesList from '../Component/StoriesList'
 
 export default function Home () {
   const [topStoryList, seTopStoryList] = useState([])
+  const [first] = useState(0)
+  const [last] = useState(10)
   const getTopStoryData = async () => {
     const response = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
     const responseJson = await response.json()
@@ -14,11 +16,13 @@ export default function Home () {
     getTopStoryData()
   }, [])
 
+  const tenStory = topStoryList.slice(first, last)
+
   const storyList = []
 
-  topStoryList.forEach((id) => {
+  tenStory.forEach((id) => {
     storyList.push(
-        <StoriesList storyId={id} />
+        <StoriesList storyId={id} key={id}/>
     )
   })
 
