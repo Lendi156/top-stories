@@ -1,7 +1,9 @@
 import React from 'react'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
 import { Container, AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'
+import Home from './Pages/Home'
 
 function App () {
   return (
@@ -16,6 +18,9 @@ function App () {
           </Typography>
         </Toolbar>
       </AppBar>
+      <Routes>
+        <Route exact path="/" element={<Home />}/>
+      </Routes>
     </Container>
   )
 }

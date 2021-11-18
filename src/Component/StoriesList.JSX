@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card, CardContent, Typography, Button, CardActions } from '@mui/material'
+import { Card, CardContent, Button, Typography, CardActions } from '@mui/material'
 
-export default function StoriesList ({ storyId }) {
+export default function StoriesList () {
   return (
-          <Card key={storyId} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <CardContent>
               <Typography>
                 Judul
@@ -24,5 +24,5 @@ export default function StoriesList ({ storyId }) {
 }
 
 StoriesList.propTypes = {
-  storyId: PropTypes.string.isRequired
+  storyId: PropTypes.number.isRequired
 }
