@@ -1,25 +1,22 @@
 import React from 'react'
-import logo from './logo.svg'
 import './App.css'
+import { Container, AppBar, Toolbar, IconButton, Typography } from '@mui/material'
+import AutoStoriesIcon from '@mui/icons-material/AutoStories'
 
 function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <AppBar sx={{ display: 'flex', alignItems: 'center' }}>
+        <Toolbar sx={{ width: '600px', display: 'flex', justifyContent: 'center' }}>
+          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} >
+              <AutoStoriesIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" component="div">
+            Top Stories
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Container>
   )
 }
 
