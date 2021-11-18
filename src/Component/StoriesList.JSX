@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Card, CardContent, Button, Typography, CardActions } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { setId } from '../Redux/Reducers/setIdSlice'
 
 export default function StoriesList ({ storyId }) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [storyInfo, setStoryInfo] = useState({})
   const getStoryData = async () => {
@@ -13,8 +15,9 @@ export default function StoriesList ({ storyId }) {
     setStoryInfo({ ...responseJson })
   }
 
-  const saveIdToStorage = (id) => {
-    dispatch(setId(id))
+  const saveIdToStorage = async (id) => {
+    await dispatch(setId(id))
+    navigate('/detail')
   }
 
   useEffect(() => {
