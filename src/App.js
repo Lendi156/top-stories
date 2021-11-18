@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Container, AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'
 import Home from './Pages/Home'
+import Detail from './Pages/Detail'
 
 function App () {
   return (
@@ -20,6 +21,7 @@ function App () {
       </AppBar>
       <Routes>
         <Route exact path="/" element={<Home />}/>
+        <Route path="/detail" element={<Detail />}/>
       </Routes>
     </Container>
   )

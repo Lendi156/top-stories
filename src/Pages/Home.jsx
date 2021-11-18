@@ -38,13 +38,13 @@ export default function Home () {
 
   return (
     <Container maxWidth="sm">
-    <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
-      {storyList}
-    </Stack>
-    <Stack direction='row' justifyContent='flex-end' spacing={2}>
+        <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
+            {storyList}
+        </Stack>
+        <Stack direction='row' justifyContent='flex-end' spacing={2}>
             {first === 0 ? null : <Button variant="contained" onClick={() => prevPage(first, last, setFirst, setLast)}>Previous</Button>}
             {last === topStoryList.length ? null : <Button variant="contained" onClick={() => nextPage(first, last, setFirst, setLast)}>Next</Button>}
-          </Stack>
+        </Stack>
     </Container>
   )
 }

@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Card, CardContent, Button, Typography, CardActions } from '@mui/material'
+import { setId } from '../Redux/Reducers/setIdSlice'
 
 export default function StoriesList ({ storyId }) {
+  const dispatch = useDispatch()
   const [storyInfo, setStoryInfo] = useState({})
   const getStoryData = async () => {
     const response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`)
     const responseJson = await response.json()
     setStoryInfo({ ...responseJson })
+  }
+
+  const saveIdToStorage = (id) => {
+    dispatch(setId(id))
   }
 
   useEffect(() => {
@@ -28,7 +35,7 @@ export default function StoriesList ({ storyId }) {
               </Typography>
             </CardContent>
             <CardActions>
-                <Button> Details</Button>
+                <Button onClick={() => saveIdToStorage(storyId)}> Details</Button>
             </CardActions>
           </Card>
   )
