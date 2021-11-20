@@ -83,3 +83,7 @@ export const getCommentData = async (commentId, setCommentInfo) => {
   const responseJson = await response.json()
   setCommentInfo({ ...responseJson })
 }
+
+export const backToHome = (navigate) => {
+  navigate('/')
+}
