@@ -6,51 +6,7 @@ import axios from 'axios'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import StarIcon from '@mui/icons-material/Star'
 import { addTitle } from '../Redux/Reducers/addToFavorite'
-
-const style = {
-  contentContainer: {
-    marginBottom: '24px'
-  },
-  fab: {
-    position: 'fixed',
-    right: '20vw',
-    bottom: '5vh'
-  },
-  detailTitle: {
-    fontSize: '2rem',
-    fontWeight: '700',
-    fontFamily: 'Lato',
-    textAlign: 'center',
-    margin: '48px 0 0'
-  },
-  detailComment: {
-    fontSize: '2rem',
-    fontWeight: '700',
-    fontFamily: 'Lato',
-    textAlign: 'center'
-  },
-  detailWriter: {
-    fontSize: '1rem',
-    fontWeight: '500',
-    fontFamily: 'Lato',
-    textAlign: 'center'
-  },
-  detailDate: {
-    fontSize: '0.64rem',
-    textDecoration: 'none',
-    textAlign: 'center'
-  },
-  detailCaption: {
-    fontSize: '0.64rem',
-    textDecoration: 'none',
-    textAlign: 'center'
-  },
-  paragraph: {
-    fontSize: '1rem',
-    lineHeight: '140%',
-    fontWeight: '400'
-  }
-}
+import style from '../Style'
 
 export default function Detail () {
   const story = useSelector((state) => state.storyId.id)

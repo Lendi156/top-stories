@@ -3,48 +3,7 @@ import { Container, Stack, Button, LinearProgress, Typography, Grid, Card, CardC
 import StoriesList from '../Component/StoriesList'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-
-const style = {
-  storyListContainer: {
-    marginTop: '48px'
-  },
-  favoriteCard: {
-    margin: '48px 0 0',
-    backgroundColor: 'black'
-  },
-  favoriteCardTitle: {
-    fontSize: '1.25rem',
-    fontWeight: '700',
-    fontFamily: 'Lato',
-    color: 'white'
-  },
-  favoriteCardCaption: {
-    fontSize: '0.64rem',
-    textDecoration: 'none',
-    color: 'white'
-  },
-  button: {
-    color: 'black',
-    borderWidth: 2,
-    borderColor: 'black',
-    fontWeight: '700',
-    fontFamily: 'Lato',
-    '&:hover': {
-      borderColor: 'white'
-    }
-  },
-  favoriteDivider: {
-    margin: '12px 0',
-    borderBottomWidth: 2,
-    background: 'white'
-  },
-  buttonContainer: {
-    marginTop: '24px'
-  },
-  contentContainer: {
-    marginBottom: '24px'
-  }
-}
+import style from '../Style'
 
 export default function Home () {
   const favoriteTitle = useSelector((state) => state.favorite.favorite)

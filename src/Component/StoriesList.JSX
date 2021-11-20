@@ -5,33 +5,7 @@ import { Card, CardContent, Typography, CardActionArea, Divider, Stack } from '@
 import { useNavigate } from 'react-router-dom'
 import { setId } from '../Redux/Reducers/setIdSlice'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
-
-const style = {
-  card: {
-    minHeight: '270px'
-  },
-  cardButton: {
-    padding: '12px',
-    minHeight: '270px'
-  },
-  cardTitle: {
-    fontSize: '1.25rem',
-    fontWeight: '700',
-    fontFamily: 'Lato'
-  },
-  divider: {
-    margin: '12px 0',
-    borderBottomWidth: 2,
-    background: 'black'
-  },
-  cardCaption: {
-    fontSize: '0.64rem',
-    textDecoration: 'none'
-  },
-  icon: {
-    fontSize: '0.64rem'
-  }
-}
+import style from '../Style'
 
 export default function StoriesList ({ storyId }) {
   const navigate = useNavigate()
