@@ -1,15 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Stack, Button } from '@mui/material'
+import { Container, Stack, Button, LinearProgress } from '@mui/material'
 import StoriesList from '../Component/StoriesList'
+import axios from 'axios'
 
 export default function Home () {
   const [topStoryList, seTopStoryList] = useState([])
   const [first, setFirst] = useState(0)
   const [last, setLast] = useState(10)
+  const [Progress, setProgress] = useState(0)
+  const [loading, setLoading] = useState(true)
+
   const getTopStoryData = async () => {
-    const response = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
-    const responseJson = await response.json()
-    seTopStoryList([...responseJson])
+    try {
+      const response = await axios.get(
+        'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty',
+        {
+          onDownloadProgress: async (progressEvent) => {
+            const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            setProgress(percentage)
+            if (percentage === 100) {
+              setTimeout(() => {
+                setLoading(false)
+              }, 1000)
+            }
+          }
+        }
+      )
+      const responseJson = await response.data
+      seTopStoryList([...responseJson])
+    } catch (err) {
+      // Handle Error Here
+      console.error(err)
+    }
   }
 
   const nextPage = (first, last) => {
@@ -39,6 +61,7 @@ export default function Home () {
   return (
     <Container maxWidth="sm">
         <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
+            {loading ? <LinearProgress variant="determinate" value={Progress} /> : null }
             {storyList}
         </Stack>
         <Stack direction='row' justifyContent='flex-end' spacing={2}>

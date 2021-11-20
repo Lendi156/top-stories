@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Card, CardContent, Typography } from '@mui/material'
 
-export default function StoriesList ({ commentId }) {
+export default function CommentList ({ commentId }) {
   const [commentInfo, setCommentInfo] = useState({})
   const getCommentData = async () => {
     const response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${commentId}.json?print=pretty`)
@@ -21,13 +21,13 @@ export default function StoriesList ({ commentId }) {
                 {commentInfo.by}
               </Typography>
               <Typography>
-                Jumlah komentar {commentInfo.text}
+                {commentInfo.text}
               </Typography>
             </CardContent>
           </Card>
   )
 }
 
-StoriesList.propTypes = {
+CommentList.propTypes = {
   commentId: PropTypes.number.isRequired
 }

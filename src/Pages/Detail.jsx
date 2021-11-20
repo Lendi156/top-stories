@@ -1,23 +1,58 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Container, Typography, Stack } from '@mui/material'
+import { Container, Typography, Stack, LinearProgress } from '@mui/material'
+import CommentList from '../Component/CommentList'
+import axios from 'axios'
 
 export default function Detail () {
   const story = useSelector((state) => state.storyId.id)
   const [storyData, setStoryData] = useState({})
+  const [Progress, setProgress] = useState(0)
+  const [loading, setLoading] = useState(true)
+
   const getStoryData = async () => {
-    const response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${story}.json?print=pretty`)
-    const responseJson = await response.json()
-    setStoryData({ ...responseJson })
+    try {
+      const response = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${story}.json?print=pretty`,
+        {
+          onDownloadProgress: async (progressEvent) => {
+            const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            setProgress(percentage)
+            if (percentage === 100) {
+              setTimeout(() => {
+                setLoading(false)
+              }, 1000)
+            }
+          }
+        }
+      )
+      const responseJson = await response.data
+      setStoryData({ ...responseJson })
+    } catch (err) {
+      // Handle Error Here
+      console.error(err)
+    }
   }
 
   useEffect(() => {
     getStoryData()
   }, [])
 
+  const commentList = []
+
+  if (storyData.kids === undefined) {
+    commentList.push(null)
+  } else {
+    storyData.kids.forEach((id) => {
+      commentList.push(
+          <CommentList commentId={id} key={id}/>
+      )
+    })
+  }
+
   return (
     <Container maxWidth="sm">
         <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
+        {loading ? <LinearProgress variant="determinate" value={Progress} /> : null }
           <Typography>
               {storyData.title}
           </Typography>
@@ -36,9 +71,7 @@ export default function Detail () {
           <Typography>
               {storyData.descendants}
           </Typography>
-          <Typography>
-              Komentar
-          </Typography>
+          {commentList}
         </Stack>
     </Container>
   )
