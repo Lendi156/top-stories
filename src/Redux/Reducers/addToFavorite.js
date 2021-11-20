@@ -2,10 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const addToFavorite = createSlice({
   name: 'favorite',
-  initialState: { favorite: [] },
+  initialState: { favorite: '', favoriteId: 0 },
   reducers: {
     addTitle: (state, action) => {
-      state.favorite = [...state.favorite, ...action.payload]
+      state.favorite = action.payload.title
+      state.favoriteId = action.payload.id
       return state
     }
   }

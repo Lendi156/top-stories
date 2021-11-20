@@ -4,10 +4,12 @@ import { Container, Typography, Stack, LinearProgress, IconButton } from '@mui/m
 import CommentList from '../Component/CommentList'
 import axios from 'axios'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
+import StarIcon from '@mui/icons-material/Star'
 import { addTitle } from '../Redux/Reducers/addToFavorite'
 
 export default function Detail () {
   const story = useSelector((state) => state.storyId.id)
+  const buttonSelector = useSelector((state) => state.favorite.favoriteId)
   const [storyData, setStoryData] = useState({})
   const [Progress, setProgress] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -15,6 +17,9 @@ export default function Detail () {
 
   const addToFavorite = (title) => {
     dispatch(addTitle(title))
+  }
+  const removeFavorite = () => {
+    dispatch(addTitle({ title: '', id: 0 }))
   }
 
   const getStoryData = async () => {
@@ -56,13 +61,25 @@ export default function Detail () {
     })
   }
 
+  console.log(buttonSelector)
+  console.log(story)
+
   return (
     <Container maxWidth="sm">
         <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
         {loading ? <LinearProgress variant="determinate" value={Progress} /> : null }
-        <IconButton aria-label="favorite" onClick={() => addToFavorite([storyData.title])}>
-          <StarBorderIcon />
-        </IconButton>
+        {buttonSelector === story
+          ? (
+          <IconButton aria-label="favorite" onClick={() => removeFavorite()}>
+            <StarIcon />
+          </IconButton>
+            )
+          : (
+          <IconButton aria-label="favorite" onClick={() => addToFavorite({ title: storyData.title, id: story })}>
+            <StarBorderIcon />
+          </IconButton>
+            ) }
+
           <Typography>
               {storyData.title}
           </Typography>
