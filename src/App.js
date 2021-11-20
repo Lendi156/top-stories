@@ -1,12 +1,15 @@
 import React from 'react'
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { Container, AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'
 import Home from './Pages/Home'
 import Detail from './Pages/Detail'
 
 function App () {
+  const location = useLocation()
+  const pageType = location.pathname
+
   return (
     <Container>
       <AppBar sx={{ display: 'flex', alignItems: 'center' }}>
@@ -15,7 +18,7 @@ function App () {
               <AutoStoriesIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" component="div">
-            Top Stories
+            {pageType === '/detail' ? 'Storie Detail' : 'Top Stories' }
           </Typography>
         </Toolbar>
       </AppBar>
