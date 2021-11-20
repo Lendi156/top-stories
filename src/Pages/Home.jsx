@@ -39,7 +39,10 @@ const style = {
     background: 'white'
   },
   buttonContainer: {
-    margin: '24px 0'
+    marginTop: '24px'
+  },
+  contentContainer: {
+    marginBottom: '24px'
   }
 }
 
@@ -106,7 +109,7 @@ export default function Home () {
   return (
     <>
       {loading ? <LinearProgress color="inherit" variant="determinate" value={Progress} /> : null }
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" sx={style.contentContainer}>
             {favoriteId
               ? (
               <Card sx={style.favoriteCard}>
@@ -126,7 +129,7 @@ export default function Home () {
             <Grid container sx={style.storyListContainer} spacing={2}>
                 {storyList}
             </Grid>
-            <Stack sx={style.buttonContainer} direction='row' justifyContent='flex-end' spacing={2}>
+            <Stack container sx={style.buttonContainer} direction='row' justifyContent='flex-end' spacing={2}>
                 {first === 0 ? null : <Button sx={style.button} variant="outlined" onClick={() => prevPage(first, last, setFirst, setLast)}>Previous</Button>}
                 {last === topStoryList.length ? null : <Button sx={style.button} variant="outlined" onClick={() => nextPage(first, last, setFirst, setLast)}>Next</Button>}
             </Stack>

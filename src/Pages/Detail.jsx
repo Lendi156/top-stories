@@ -8,6 +8,9 @@ import StarIcon from '@mui/icons-material/Star'
 import { addTitle } from '../Redux/Reducers/addToFavorite'
 
 const style = {
+  contentContainer: {
+    marginBottom: '24px'
+  },
   fab: {
     position: 'fixed',
     right: '20vw',
@@ -18,7 +21,7 @@ const style = {
     fontWeight: '700',
     fontFamily: 'Lato',
     textAlign: 'center',
-    margin: '48px 0'
+    margin: '48px 0 0'
   },
   detailComment: {
     fontSize: '2rem',
@@ -106,7 +109,6 @@ export default function Detail () {
   return (
     <>
       {loading ? <LinearProgress color="inherit" variant="determinate" value={Progress} /> : null }
-      <Stack>
           {buttonSelector === story
             ? (
                 <Fab sx={style.fab} aria-label="remove from favorite" onClick={() => removeFavorite()}>
@@ -118,8 +120,7 @@ export default function Detail () {
                   <StarBorderIcon />
                 </Fab>
               ) }
-      </Stack>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" sx={style.contentContainer}>
           <Stack spacing={2}>
             <Typography sx={style.detailTitle}>
                 {storyData.title}
