@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Stack, Button, LinearProgress } from '@mui/material'
+import { Container, Stack, Button, LinearProgress, Typography } from '@mui/material'
 import StoriesList from '../Component/StoriesList'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 export default function Home () {
+  const favoriteTitle = useSelector((state) => state.favorite.favorite)
   const [topStoryList, seTopStoryList] = useState([])
   const [first, setFirst] = useState(0)
   const [last, setLast] = useState(10)
@@ -51,6 +53,7 @@ export default function Home () {
   const tenStory = topStoryList.slice(first, last)
 
   const storyList = []
+  const favoriteList = []
 
   tenStory.forEach((id) => {
     storyList.push(
@@ -58,10 +61,20 @@ export default function Home () {
     )
   })
 
+  favoriteTitle.forEach((title) => {
+    console.log(title)
+    favoriteList.push(
+      <Typography>
+         {title}
+      </Typography>
+    )
+  })
+
   return (
     <Container maxWidth="sm">
         <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
             {loading ? <LinearProgress variant="determinate" value={Progress} /> : null }
+            {favoriteList}
             {storyList}
         </Stack>
         <Stack direction='row' justifyContent='flex-end' spacing={2}>

@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { Container, Typography, Stack, LinearProgress } from '@mui/material'
+import { useSelector, useDispatch } from 'react-redux'
+import { Container, Typography, Stack, LinearProgress, IconButton } from '@mui/material'
 import CommentList from '../Component/CommentList'
 import axios from 'axios'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
+import { addTitle } from '../Redux/Reducers/addToFavorite'
 
 export default function Detail () {
   const story = useSelector((state) => state.storyId.id)
   const [storyData, setStoryData] = useState({})
   const [Progress, setProgress] = useState(0)
   const [loading, setLoading] = useState(true)
+  const dispatch = useDispatch()
+
+  const addToFavorite = (title) => {
+    dispatch(addTitle(title))
+  }
 
   const getStoryData = async () => {
     try {
@@ -53,6 +60,9 @@ export default function Detail () {
     <Container maxWidth="sm">
         <Stack spacing={2} sx={{ margin: '80px 0 20px' }}>
         {loading ? <LinearProgress variant="determinate" value={Progress} /> : null }
+        <IconButton aria-label="favorite" onClick={() => addToFavorite([storyData.title])}>
+          <StarBorderIcon />
+        </IconButton>
           <Typography>
               {storyData.title}
           </Typography>
