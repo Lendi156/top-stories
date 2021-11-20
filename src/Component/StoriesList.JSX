@@ -1,9 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Card, CardContent, Button, Typography, CardActions } from '@mui/material'
+import { Card, CardContent, Typography, CardActionArea, Divider, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { setId } from '../Redux/Reducers/setIdSlice'
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
+
+const style = {
+  card: {
+    minHeight: '270px'
+  },
+  cardButton: {
+    padding: '12px',
+    minHeight: '270px'
+  },
+  cardTitle: {
+    fontSize: '1.25rem',
+    fontWeight: '700',
+    fontFamily: 'Lato'
+  },
+  divider: {
+    margin: '12px 0',
+    borderBottomWidth: 2,
+    background: 'black'
+  },
+  cardCaption: {
+    fontSize: '0.64rem',
+    textDecoration: 'none'
+  },
+  icon: {
+    fontSize: '0.64rem'
+  }
+}
 
 export default function StoriesList ({ storyId }) {
   const navigate = useNavigate()
@@ -25,21 +53,26 @@ export default function StoriesList ({ storyId }) {
   }, [])
 
   return (
-          <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <CardContent>
-              <Typography>
-                {storyInfo.title}
-              </Typography>
-              <Typography>
-                Jumlah komentar {storyInfo.kids === undefined ? 0 : storyInfo.kids.length}
-              </Typography>
-              <Typography>
-                {storyInfo.score}
-              </Typography>
-            </CardContent>
-            <CardActions>
-                <Button onClick={() => saveIdToStorage(storyId)}> Details</Button>
-            </CardActions>
+          <Card sx={style.card}>
+            <CardActionArea sx={style.cardButton} onClick={() => saveIdToStorage(storyId)}>
+              <CardContent>
+                <Typography sx={style.cardTitle}>
+                  {storyInfo.title}
+                </Typography>
+                <Divider sx={style.divider}/>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <ChatBubbleOutlineIcon sx={style.icon} />
+                    <Typography sx={style.cardCaption}>
+                      {storyInfo.kids === undefined ? 0 : storyInfo.kids.length}
+                    </Typography>
+                  </Stack>
+                  <Typography sx={style.cardCaption}>
+                    Score: {storyInfo.score}
+                  </Typography>
+                </Stack>
+              </CardContent>
+            </CardActionArea>
           </Card>
   )
 }

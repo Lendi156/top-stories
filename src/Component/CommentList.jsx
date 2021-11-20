@@ -1,6 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Card, CardContent, Typography } from '@mui/material'
+import { Card, CardContent, Typography, Divider } from '@mui/material'
+
+const style = {
+  commentCard: {
+    padding: '12px'
+  },
+  cardTitle: {
+    fontSize: '1.25rem',
+    fontWeight: '700',
+    fontFamily: 'Lato'
+  },
+  divider: {
+    margin: '12px 0',
+    borderBottomWidth: 2,
+    background: 'black'
+  },
+  paragraph: {
+    fontSize: '1rem',
+    lineHeight: '140%',
+    fontWeight: '400'
+  }
+}
 
 export default function CommentList ({ commentId }) {
   const [commentInfo, setCommentInfo] = useState({})
@@ -15,12 +36,13 @@ export default function CommentList ({ commentId }) {
   }, [])
 
   return (
-          <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Card sx={style.commentCard}>
             <CardContent>
-              <Typography>
+              <Typography sx={style.cardTitle}>
                 {commentInfo.by}
               </Typography>
-              <Typography>
+              <Divider sx={style.divider}/>
+              <Typography sx={style.paragraph}>
                 {commentInfo.text}
               </Typography>
             </CardContent>
