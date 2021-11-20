@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Container, Typography, Stack, LinearProgress, Fab, Grid } from '@mui/material'
 import CommentList from '../Component/CommentList'
-import axios from 'axios'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import StarIcon from '@mui/icons-material/Star'
-import { addTitle } from '../Redux/Reducers/addToFavorite'
 import style from '../Style'
+import { addToFavorite, removeFavorite, getStoryData } from '../utils'
 
 export default function Detail () {
   const story = useSelector((state) => state.storyId.id)
@@ -16,38 +15,8 @@ export default function Detail () {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
-  const addToFavorite = (title) => {
-    dispatch(addTitle(title))
-  }
-  const removeFavorite = () => {
-    dispatch(addTitle({ title: '', id: 0 }))
-  }
-
-  const getStoryData = async () => {
-    try {
-      const response = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${story}.json?print=pretty`,
-        {
-          onDownloadProgress: async (progressEvent) => {
-            const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            setProgress(percentage)
-            if (percentage === 100) {
-              setTimeout(() => {
-                setLoading(false)
-              }, 1000)
-            }
-          }
-        }
-      )
-      const responseJson = await response.data
-      setStoryData({ ...responseJson })
-    } catch (err) {
-      // Handle Error Here
-      console.error(err)
-    }
-  }
-
   useEffect(() => {
-    getStoryData()
+    getStoryData(story, setProgress, setLoading, setStoryData)
   }, [])
 
   const commentList = []
@@ -67,12 +36,12 @@ export default function Detail () {
       {loading ? <LinearProgress color="inherit" variant="determinate" value={Progress} /> : null }
           {buttonSelector === story
             ? (
-                <Fab sx={style.fab} aria-label="remove from favorite" onClick={() => removeFavorite()}>
+                <Fab sx={style.fab} aria-label="remove from favorite" onClick={() => removeFavorite(dispatch)}>
                   <StarIcon />
                 </Fab>
               )
             : (
-                <Fab sx={style.fab} aria-label="add to favorite" onClick={() => addToFavorite({ title: storyData.title, id: story })}>
+                <Fab sx={style.fab} aria-label="add to favorite" onClick={() => addToFavorite({ title: storyData.title, id: story }, dispatch)}>
                   <StarBorderIcon />
                 </Fab>
               ) }
